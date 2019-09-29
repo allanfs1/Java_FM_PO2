@@ -1,0 +1,58 @@
+DROP DATABASE IF EXISTS tx;
+CREATE DATABASE IF NOT EXISTS tx; 
+USE  tx;
+
+DROP TABLE IF EXISTS tb_endereco;
+CREATE TABLE IF NOT EXISTS tb_endereco(
+id_endereco  INT  NOT NULL PRIMARY KEY AUTO_INCREMENT,
+bairro VARCHAR(25) NOT NULL,
+UF CHAR(2) NOT NULL,
+CEP CHAR(9) NOT NULL,
+cidade VARCHAR(25) NOT NULL,
+numero_ed TINYINT(10) NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+DROP TABLE IF EXISTS tb_telefone;
+CREATE TABLE IF NOT EXISTS tb_telefone(
+id_tel INT  NOT NULL PRIMARY KEY AUTO_INCREMENT,
+tel_celular VARCHAR(25) NOT NULL,
+tel_residen VARCHAR(25),
+dd CHAR(2) NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+DROP TABLE IF EXISTS tb_pessoas;
+CREATE TABLE IF NOT EXISTS tb_pessoas(
+is_pessoa  INT  NOT NULL PRIMARY KEY AUTO_INCREMENT,
+id_tel INT DEFAULT NULL,
+id_endereco INT DEFAULT NULL,
+nome  VARCHAR(45) NOT NULL,
+dt_data DATE , 
+rg DOUBLE NOT NULL,
+cpf DOUBLE NOT NULL,
+natura_ld CHAR(2) DEFAULT NULL,
+na_mae VARCHAR(45) DEFAULT NULL,
+na_pai VARCHAR(45) DEFAULT NULL,
+UNIQUE KEY cpf(cpf),
+UNIQUE KEY rg(rg),
+CONSTRAINT FK_endereco FOREIGN KEY(id_endereco) REFERENCES tb_endereco(id_endereco),
+CONSTRAINT FK_telefone FOREIGN KEY(id_tel) REFERENCES tb_telefone(id_tel)
+
+)ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
+
+INSERT INTO tb_endereco VALUES(NULL,"Jardim","SP","12350-000","São Paulo",10);
+INSERT INTO tb_endereco VALUES(NULL,"Jardim","SP","12350-000","São Paulo",50);
+INSERT INTO tb_endereco VALUES(NULL,"Paulista","SP","12430-000","São Paulo",40);
+
+INSERT INTO tb_telefone VALUES(NULL,"9999999","19393939","11");
+INSERT INTO tb_telefone VALUES(NULL,"6666666","11111111","11");
+INSERT INTO tb_telefone VALUES(NULL,"646636","24567711","11");
+INSERT INTO tb_pessoas  VALUES(NULL,LAST_INSERT_ID(),1,"David F de Souza","1966-12-12",116677,223242,"SP","Luciene","David");
+INSERT INTO tb_pessoas  VALUES(NULL,LAST_INSERT_ID(),2,"Allan F de Souza","1994-4-1",6677,323442,"SP","Luciene","David");
+#SELECT * FROM tb_pessoas;
+#SELECT * FROM tb_endereco;
+#SELECT * FROM tb_telefone;agendal6agendas_teste
